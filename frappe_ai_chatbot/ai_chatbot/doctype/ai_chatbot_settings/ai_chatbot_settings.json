@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "section_break_1",
+  "llm_provider",
+  "claude_api_key",
+  "claude_model",
+  "openai_api_key",
+  "openai_model",
+  "gemini_api_key",
+  "gemini_model",
+  "local_endpoint",
+  "local_model",
+  "column_break_2",
+  "max_tokens",
+  "temperature",
+  "top_p",
+  "context_window_size",
+  "section_break_3",
+  "system_prompt",
+  "welcome_message",
+  "section_break_4",
+  "enable_rate_limiting",
+  "messages_per_hour",
+  "tokens_per_day",
+  "max_concurrent_requests",
+  "column_break_5",
+  "enable_streaming",
+  "enable_tool_calling",
+  "enable_sound_notifications",
+  "enable_markdown_rendering",
+  "section_break_6",
+  "mcp_oauth_client_id",
+  "mcp_oauth_client_secret",
+  "mcp_oauth_token_url",
+  "mcp_oauth_access_token",
+  "column_break_mcp",
+  "mcp_endpoint",
+  "tool_cache_ttl",
+  "enable_tool_caching"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "LLM Configuration"
+  },
+  {
+   "default": "Gemini",
+   "fieldname": "llm_provider",
+   "fieldtype": "Select",
+   "label": "Default LLM Provider",
+   "options": "Gemini\nClaude\nOpenAI\nLocal",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.llm_provider=='Claude'",
+   "fieldname": "claude_api_key",
+   "fieldtype": "Password",
+   "label": "Claude API Key"
+  },
+  {
+   "default": "claude-3-5-sonnet-20241022",
+   "depends_on": "eval:doc.llm_provider=='Claude'",
+   "fieldname": "claude_model",
+   "fieldtype": "Select",
+   "label": "Claude Model",
+   "options": "claude-3-5-sonnet-20241022\nclaude-3-5-haiku-20241022\nclaude-3-opus-20240229"
+  },
+  {
+   "depends_on": "eval:doc.llm_provider=='OpenAI'",
+   "fieldname": "openai_api_key",
+   "fieldtype": "Password",
+   "label": "OpenAI API Key"
+  },
+  {
+   "default": "gpt-4o",
+   "depends_on": "eval:doc.llm_provider=='OpenAI'",
+   "fieldname": "openai_model",
+   "fieldtype": "Select",
+   "label": "OpenAI Model",
+   "options": "gpt-4o\ngpt-4o-mini\ngpt-4-turbo\ngpt-3.5-turbo"
+  },
+  {
+   "depends_on": "eval:doc.llm_provider=='Gemini'",
+   "description": "Get your free API key at https://makersuite.google.com/app/apikey",
+   "fieldname": "gemini_api_key",
+   "fieldtype": "Password",
+   "label": "Gemini API Key"
+  },
+  {
+   "default": "gemini-1.5-flash",
+   "depends_on": "eval:doc.llm_provider=='Gemini'",
+   "fieldname": "gemini_model",
+   "fieldtype": "Select",
+   "label": "Gemini Model",
+   "options": "gemini-1.5-pro\ngemini-1.5-flash\ngemini-1.5-flash-8b\ngemini-1.0-pro"
+  },
+  {
+   "default": "http://localhost:11434",
+   "depends_on": "eval:doc.llm_provider=='Local'",
+   "fieldname": "local_endpoint",
+   "fieldtype": "Data",
+   "label": "Local Endpoint"
+  },
+  {
+   "default": "llama3",
+   "depends_on": "eval:doc.llm_provider=='Local'",
+   "fieldname": "local_model",
+   "fieldtype": "Data",
+   "label": "Local Model"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "4096",
+   "fieldname": "max_tokens",
+   "fieldtype": "Int",
+   "label": "Max Tokens"
+  },
+  {
+   "default": "0.7",
+   "fieldname": "temperature",
+   "fieldtype": "Float",
+   "label": "Temperature",
+   "precision": "2"
+  },
+  {
+   "default": "0.9",
+   "fieldname": "top_p",
+   "fieldtype": "Float",
+   "label": "Top P",
+   "precision": "2"
+  },
+  {
+   "default": "10",
+   "description": "Number of recent messages to include in context",
+   "fieldname": "context_window_size",
+   "fieldtype": "Int",
+   "label": "Context Window Size"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break",
+   "label": "Messages"
+  },
+  {
+   "default": "You are a helpful AI assistant integrated with ERPNext. You have access to various tools to help users manage their ERP system. Be concise, accurate, and professional.",
+   "fieldname": "system_prompt",
+   "fieldtype": "Text",
+   "label": "System Prompt"
+  },
+  {
+   "default": "👋 Hello! I'm your AI assistant. How can I help you today?",
+   "fieldname": "welcome_message",
+   "fieldtype": "Text",
+   "label": "Welcome Message"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Rate Limiting"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_rate_limiting",
+   "fieldtype": "Check",
+   "label": "Enable Rate Limiting"
+  },
+  {
+   "default": "60",
+   "depends_on": "enable_rate_limiting",
+   "fieldname": "messages_per_hour",
+   "fieldtype": "Int",
+   "label": "Messages Per Hour"
+  },
+  {
+   "default": "100000",
+   "depends_on": "enable_rate_limiting",
+   "fieldname": "tokens_per_day",
+   "fieldtype": "Int",
+   "label": "Tokens Per Day"
+  },
+  {
+   "default": "3",
+   "depends_on": "enable_rate_limiting",
+   "fieldname": "max_concurrent_requests",
+   "fieldtype": "Int",
+   "label": "Max Concurrent Requests"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_streaming",
+   "fieldtype": "Check",
+   "label": "Enable Streaming"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_tool_calling",
+   "fieldtype": "Check",
+   "label": "Enable Tool Calling"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_sound_notifications",
+   "fieldtype": "Check",
+   "label": "Enable Sound Notifications"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_markdown_rendering",
+   "fieldtype": "Check",
+   "label": "Enable Markdown Rendering"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "MCP OAuth Configuration",
+   "description": "Configure OAuth 2.0 authentication for connecting to Frappe Assistant Core. OAuth is required - no other authentication method is supported."
+  },
+  {
+   "description": "OAuth Client ID from Frappe's OAuth Client DocType. Create one in OAuth Client list.",
+   "fieldname": "mcp_oauth_client_id",
+   "fieldtype": "Data",
+   "label": "OAuth Client ID",
+   "reqd": 1
+  },
+  {
+   "description": "OAuth Client Secret (stored securely). Get this from your OAuth Client record.",
+   "fieldname": "mcp_oauth_client_secret",
+   "fieldtype": "Password",
+   "label": "OAuth Client Secret",
+   "reqd": 1
+  },
+  {
+   "default": "/api/method/frappe.integrations.oauth2.get_token",
+   "description": "OAuth token endpoint (Frappe's standard OAuth endpoint)",
+   "fieldname": "mcp_oauth_token_url",
+   "fieldtype": "Data",
+   "label": "OAuth Token URL",
+   "reqd": 1
+  },
+  {
+   "description": "Current OAuth access token (auto-refreshed, do not edit manually)",
+   "fieldname": "mcp_oauth_access_token",
+   "fieldtype": "Password",
+   "label": "OAuth Access Token (Auto-managed)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_mcp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "/api/method/frappe_assistant_core.api.fac_endpoint.handle_mcp",
+   "description": "MCP endpoint URL (Frappe Assistant Core's MCP handler)",
+   "fieldname": "mcp_endpoint",
+   "fieldtype": "Data",
+   "label": "MCP Endpoint",
+   "reqd": 1
+  },
+  {
+   "default": "300",
+   "description": "Tool list cache TTL in seconds",
+   "fieldname": "tool_cache_ttl",
+   "fieldtype": "Int",
+   "label": "Tool Cache TTL"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_tool_caching",
+   "fieldtype": "Check",
+   "label": "Enable Tool Caching"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Chatbot",
+ "name": "AI Chatbot Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
