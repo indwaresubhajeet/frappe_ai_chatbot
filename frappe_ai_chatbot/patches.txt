@@ -1,0 +1,2 @@
+frappe_ai_chatbot.patches.v1_0_0.create_user_token_doctype
+frappe_ai_chatbot.patches.v1_0_0.add_tool_call_id_field
